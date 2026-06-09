@@ -1,0 +1,453 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Griffin's Compass — приключенческая новелла</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background-color: #0f0f1a;
+            color: #e0e0e0;
+            font-family: 'Inter', sans-serif;
+            line-height: 1.7;
+        }
+
+        h1,
+        h2,
+        h3 {
+            font-family: 'Cinzel', 'Georgia', serif;
+            color: #d4af37;
+            font-weight: 600;
+        }
+
+        .container {
+            max-width: 960px;
+            margin: 0 auto;
+            padding: 0 1.5rem;
+        }
+
+        /* Шапка */
+        .hero {
+            min-height: 90vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 3rem 1rem 4rem;
+        }
+
+        .hero h1 {
+            font-size: clamp(2.5rem, 7vw, 4.5rem);
+            letter-spacing: 0.04em;
+            margin-bottom: 0.5rem;
+        }
+
+        .hero .subtitle {
+            font-size: 1.1rem;
+            color: #a0a0b0;
+            max-width: 600px;
+            margin: 0 auto 1.5rem;
+        }
+
+        .hero .utp {
+            font-size: 1.25rem;
+            font-weight: 500;
+            color: #f0d060;
+            max-width: 650px;
+            margin: 0 auto 2.5rem;
+            font-style: italic;
+            letter-spacing: 0.02em;
+            line-height: 1.5;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 0.8rem 2rem;
+            background: #d4af37;
+            color: #0f0f1a;
+            font-weight: 600;
+            font-size: 1rem;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            text-decoration: none;
+            font-family: 'Cinzel', serif;
+            letter-spacing: 0.04em;
+        }
+
+        /* Навигация */
+        nav {
+            background: #0f0f1a;
+            border-bottom: 1px solid #2a2a3a;
+            padding: 0.6rem 0;
+            text-align: center;
+        }
+
+        nav .container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 1.2rem;
+        }
+
+        nav a {
+            color: #a0a0b0;
+            text-decoration: none;
+            font-size: 0.9rem;
+            font-weight: 500;
+            padding: 0.3rem 0;
+            border-bottom: 2px solid transparent;
+        }
+
+        nav a:hover {
+            color: #d4af37;
+            border-bottom-color: #d4af37;
+        }
+
+        /* Секции */
+        section {
+            padding: 4rem 0;
+        }
+
+        section h2 {
+            font-size: 2rem;
+            margin-bottom: 2rem;
+            text-align: center;
+        }
+
+        /* Карточки */
+        .card {
+            background: #1a1a2e;
+            border: 1px solid #2a2a3a;
+            border-radius: 8px;
+            padding: 1.8rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .grid-2 {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .grid-3 {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 1.5rem;
+        }
+
+        /* Персонажи */
+        .char-card {
+            background: #1a1a2e;
+            border: 1px solid #2a2a3a;
+            border-radius: 8px;
+            padding: 2rem 1.5rem 1.5rem;
+            text-align: center;
+        }
+
+        .char-card h3 {
+            margin-bottom: 0.3rem;
+            font-size: 1.2rem;
+        }
+
+        .char-card .role {
+            color: #a0a0b0;
+            font-size: 0.85rem;
+        }
+
+        /* Иконки-ромбы */
+        .diamond-icon {
+            display: inline-block;
+            font-size: 2rem;
+            color: #d4af37;
+            margin-bottom: 0.8rem;
+        }
+
+        /* Комнаты / шаги */
+        .step {
+            display: flex;
+            gap: 1.5rem;
+            align-items: flex-start;
+            background: #1a1a2e;
+            border: 1px solid #2a2a3a;
+            border-radius: 8px;
+            padding: 1.8rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .step-num {
+            flex-shrink: 0;
+            width: 48px;
+            height: 48px;
+            background: #d4af37;
+            color: #0f0f1a;
+            font-weight: 700;
+            font-size: 1.3rem;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: 'Cinzel', serif;
+        }
+
+        .step-content h3 {
+            margin-bottom: 0.4rem;
+        }
+
+        .step-content p {
+            color: #a0a0b0;
+            font-size: 0.95rem;
+        }
+
+        /* Концовки */
+        .ending {
+            background: #1a1a2e;
+            border: 1px solid #2a2a3a;
+            border-radius: 8px;
+            padding: 1.8rem;
+            margin-bottom: 1.5rem;
+            border-left: 4px solid #d4af37;
+        }
+
+        .ending.alt {
+            border-left-color: #5d8de8;
+        }
+
+        .ending-tag {
+            display: inline-block;
+            font-size: 0.75rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            color: #d4af37;
+            margin-bottom: 0.5rem;
+        }
+
+        .ending.alt .ending-tag {
+            color: #5d8de8;
+        }
+
+        /* Команда */
+        .team-list {
+            list-style: none;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 0.8rem;
+        }
+
+        .team-list li {
+            background: #1a1a2e;
+            border: 1px solid #2a2a3a;
+            border-radius: 8px;
+            padding: 1rem;
+            text-align: center;
+        }
+
+        /* Подвал */
+        footer {
+            text-align: center;
+            padding: 2.5rem 1rem;
+            border-top: 1px solid #2a2a3a;
+            color: #a0a0b0;
+            font-size: 0.85rem;
+        }
+
+        footer a {
+            color: #d4af37;
+            text-decoration: none;
+        }
+
+        @media (max-width: 600px) {
+            .step {
+                flex-direction: column;
+                gap: 0.8rem;
+            }
+            nav .container {
+                gap: 0.8rem;
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+            nav a {
+                font-size: 0.8rem;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- НАВИГАЦИЯ -->
+    <nav>
+        <div class="container">
+            <a href="#hero">Главная</a>
+            <a href="#about">Об игре</a>
+            <a href="#characters">Персонажи</a>
+            <a href="#plot">Сюжет</a>
+            <a href="#endings">Финал</a>
+            <a href="#team">Команда</a>
+        </div>
+    </nav>
+
+    <!-- HERO -->
+    <section class="hero" id="hero">
+        <h1>Griffin's Compass</h1>
+        <p class="subtitle">Приключенческая визуальная новелла</p>
+        <p class="utp">«Компас, который ведёт не по карте, а по совести — и каждый выбор игрока проверяет, куда он на самом деле направляется.»</p>
+        <a href="#about" class="btn">Узнать больше</a>
+    </section>
+
+    <!-- ОБ ИГРЕ -->
+    <section id="about">
+        <div class="container">
+            <h2>Об игре</h2>
+            <div class="card">
+                <p><strong>Griffin's Compass</strong> — это приключенческая новелла, где загадки, логика и сюжет работают вместе, чтобы проверить не только ум игрока, но и его моральный выбор. Вы не просто ищете украденный артефакт — вы решаете, что важнее: правда, справедливость или понимание.</p>
+                <p style="margin-top:0.8rem; color:#a0a0b0;">Идея родилась в студенческом кругу — мы хотели создать историю, где нет однозначно плохих и хороших, а каждый игрок выносит собственное суждение.</p>
+            </div>
+
+            <h3 style="text-align:center; margin:2rem 0 1rem; color:#f0d060;">Почему эта игра особенная</h3>
+            <div class="grid-3">
+                <div class="card" style="text-align:center;">
+                    <span class="diamond-icon">&#9670;</span>
+                    <h3>Геймплей — часть сюжета</h3>
+                    <p style="color:#a0a0b0;">Каждая механика (поиск, загадки, расчёты) — отражение личности антагониста и путь героя к пониманию.</p>
+                </div>
+                <div class="card" style="text-align:center;">
+                    <span class="diamond-icon">&#9670;</span>
+                    <h3>Неоднозначный антагонист</h3>
+                    <p style="color:#a0a0b0;">Гилберт — не злодей, а человек с идеей. Игрок не просто «побеждает», а выносит суждение.</p>
+                </div>
+                <div class="card" style="text-align:center;">
+                    <span class="diamond-icon">&#9670;</span>
+                    <h3>Символ в центре всего</h3>
+                    <p style="color:#a0a0b0;">Компас физически почти не участвует в геймплее, но концептуально направляет каждый выбор.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ПЕРСОНАЖИ -->
+    <section id="characters">
+        <div class="container">
+            <h2>Персонажи</h2>
+            <div class="grid-3">
+                <div class="char-card">
+                    <h3>Сэр Олрик</h3>
+                    <p class="role">Главный герой, рыцарь</p>
+                </div>
+                <div class="char-card">
+                    <h3>Коготь</h3>
+                    <p class="role">Грифон, верный спутник</p>
+                </div>
+                <div class="char-card">
+                    <h3>Бром</h3>
+                    <p class="role">Гном, владелец трактира</p>
+                </div>
+                <div class="char-card">
+                    <h3>Гилберт</h3>
+                    <p class="role">Картограф, антагонист</p>
+                </div>
+                <div class="char-card">
+                    <h3>Финн</h3>
+                    <p class="role">Повар-полурослик</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- СЮЖЕТ (комнаты) -->
+    <section id="plot">
+        <div class="container">
+            <h2>Сюжет: четыре комнаты</h2>
+            <p style="text-align:center; color:#a0a0b0; margin-bottom:2.5rem;">Путь от пропавшего компаса до морального выбора</p>
+
+            <div class="step">
+                <div class="step-num">1</div>
+                <div class="step-content">
+                    <h3>Кладовая Финна</h3>
+                    <p><strong>Механика:</strong> поиск предмета в режиме грифона. Игрок осматривает полки, чтобы найти лом для раскалывания сахарных голов. Финн зол — кто-то рассыпал муку и переполошил всю кухню.</p>
+                </div>
+            </div>
+
+            <div class="step">
+                <div class="step-num">2</div>
+                <div class="step-content">
+                    <h3>Подвальная комната</h3>
+                    <p><strong>Механика:</strong> три загадки от магического голоса. Сундук с уликами закрыт на три замка. Чтобы открыть, нужно ответить на хитрые вопросы старого хозяина трактира.</p>
+                </div>
+            </div>
+
+            <div class="step">
+                <div class="step-num">3</div>
+                <div class="step-content">
+                    <h3>Коридор с завалом</h3>
+                    <p><strong>Механика:</strong> использование найденного лома. Тяжёлая дверь подперта железным засовом. Олрик и Коготь вместе взламывают проход к тайной комнате.</p>
+                </div>
+            </div>
+
+            <div class="step">
+                <div class="step-num">4</div>
+                <div class="step-content">
+                    <h3>Тайная комната Гилберта</h3>
+                    <p><strong>Механика:</strong> финальный тест — 5 случайных математических и логических задач. Магический шкаф с компасом внутри откроется только тому, кто мыслит как учёный. Ошибка — и всё начинается заново.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ФИНАЛ -->
+    <section id="endings">
+        <div class="container">
+            <h2>Две концовки</h2>
+            <p style="text-align:center; color:#a0a0b0; margin-bottom:2rem;">Игрок сам решает судьбу Гилберта</p>
+
+            <div class="ending">
+                <span class="ending-tag">Правосудие</span>
+                <h3>Справедливость</h3>
+                <p>Олрик возвращает компас Брому. Гилберт извиняется перед всеми, помогает убраться на кухне и уезжает, пообещав вернуться честным гостем. Правда восторжествовала — но без дружбы.</p>
+            </div>
+
+            <div class="ending alt">
+                <span class="ending-tag">Милость</span>
+                <h3>Милосердие и дружба</h3>
+                <p>Олрик убеждает Гилберта объясниться с Бромом. В обмен на помощь с ремонтом крыши и новую вывеску с грифоном Бром разрешает скопировать чертежи компаса. Все собираются за одним столом.</p>
+            </div>
+
+            <div class="card" style="text-align:center; margin-top:2rem;">
+                <p style="font-style:italic; color:#f0d060;">«Мы нашли не золото. Мы нашли правду и не дали обидеть старого друга.»</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- КОМАНДА -->
+    <section id="team">
+        <div class="container">
+            <h2>Команда разработки</h2>
+            <p style="text-align:center; color:#a0a0b0; margin-bottom:2rem;">Мы — команда энтузиастов, которые верят, что игры могут рассказывать глубокие истории.</p>
+            <ul class="team-list">
+                <li><strong>Карпюк Кирилл</strong><br><small>программист , сайт</small></li>
+                <li><strong>Иванов Владислав</strong><br><small>дизайнер , модельки и фон</small></li>
+                <li><strong>Ярковская Александра</strong><br><small>дизайнер , модельки сюжет</small></li>
+                <li><strong>Протопопов Максим</strong><br><small>программист , игра</small></li>
+                <li><strong>Чечихина Полина</strong><br><small>реклама,маркетинговая стратегия</small></li>
+                <li><strong>Веретенникова Екатерина</strong><br><small>реклама,маркетинговая стратегия</small></li>
+                <li><strong>Зыкова Дарья</strong><br><small>торговое дело , финансы</small></li>
+            </ul>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer>
+        <div class="container">
+            <p>© 2026 Griffin's Compass. Приключенческая новелла на Renpy!.</p>
+        </div>
+    </footer>
+
+</body>
+</html>
